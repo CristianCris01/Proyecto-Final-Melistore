@@ -3,10 +3,11 @@ const bcrypt = require("bcryptjs")
 
 
 const pool = new Pool({
-    host: "localhost",
-    user: "postgres",
-    password: "1234",
-    database: "melistore",
+    host: "aws-1-us-east-1.pooler.supabase.com",
+    port:"5432",
+    user: "postgres.okpdwsukbglkaxozpxod",
+    password: "Poyoko2408.",
+    database: "postgres",
     allowExitOnIdle: true
 
 });
