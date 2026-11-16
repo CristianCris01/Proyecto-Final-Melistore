@@ -17,10 +17,12 @@ const {
 const app = express();
 
 app.use(express.json());
-app.se(cors());
+app.use(cors());
 
-app.listen(3000, async () => {
-    console.log("🟢 Servidor iniciado con exito en -->http://localhost:3000 <--");
+const port = process.env.PORT || 3000;
+
+app.listen(port, async () => {
+    console.log(`🟢 Servidor iniciado con exito en el puerto ${port}`);
     try {
         const hora = await checkConnection();
         console.log("Base de datos conectada y funcionando a las " + hora);
