@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "jest --runInBand"
-  },
+    
+  "start": "node index.js",
+  "dev": "nodemon index.js",
+  "test": "jest --runInBand"
+}
+  ,
   "keywords": [],
   "author": "",
   "license": "ISC",
