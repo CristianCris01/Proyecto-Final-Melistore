@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Register ({onClose}) {
+    const [nombre, setNombre] = useState("");
     const [ email, setEmail] = useState("");
     const [ password, setPassword] = useState("");
     const [ confirmPass, setConfirmPass] = useState("");
@@ -10,12 +11,12 @@ function Register ({onClose}) {
     const handLeSubmit = async(e) => {
         e.preventDefault();
 
-        if(!email || !password || !confirmPass || password !== confirmPass || password.length < 6){
+        if(!nombre.trim() || !email.trim() || !password || !confirmPass || password !== confirmPass || password.length < 6){
             alert("Por Favor, complete todos los campos. La contraseña debe tern almenos 6 caracteres");
             return;
         }
         else {
-            let user = {email, password};
+            let user = {nombre, email, password};
             let datos = JSON.stringify(user);
 
             const respuesta = await fetch("https://backend-r0ho.onrender.com/usuarios",{
@@ -45,7 +46,19 @@ function Register ({onClose}) {
             >
             <div className="ContainerRegister">
                 <h1>Crea tu cuenta</h1>
-            <br/>    
+            <br/>  
+            <label htmlFor="nombre">Nombre</label>
+            
+            <input
+                
+                className="inputRegister"
+                type="text"
+                placeholder="Indicanos tu Nombre" 
+                value={nombre}
+                onChange={(e) => {setNombre(e.target.value);
+                }}  required 
+            ></input>
+  
             
             <label htmlFor="email">Correo electrónico</label>
             
