@@ -18,7 +18,7 @@ function Register ({onClose}) {
             let user = {email, password};
             let datos = JSON.stringify(user);
 
-            const respuesta = await fetch("http://localhost:3000",{
+            const respuesta = await fetch("https://backend-r0ho.onrender.com/users",{
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: datos,
