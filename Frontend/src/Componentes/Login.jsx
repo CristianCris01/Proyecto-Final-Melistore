@@ -12,7 +12,7 @@ function Login () {
     const {setUser} = useContext (UserContext);
 
   
-    
+
     const handleSubmit = async(e) => {
         e.preventDefault();
     
@@ -21,7 +21,7 @@ function Login () {
             alert("Por favor, complete todos los campos. La contraseña debe tener al menos 6 caracteres.");
         }
          else { 
-            const respuesta = await fetch("https://backend-r0ho.onrender.com/",{
+            const respuesta = await fetch("https://backend-r0ho.onrender.com/login",{
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({email, password}),
