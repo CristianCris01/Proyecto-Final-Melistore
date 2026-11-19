@@ -1,4 +1,4 @@
-import Card from '../Componentes/Card';
+import Card from './Card';
 import './Productos.css';
 
 const products = [

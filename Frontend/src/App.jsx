@@ -1,5 +1,5 @@
 import './App.css'
-import Home from './Pages/Home'
+import Home from './views/Home'
 import {BrowserRouter, Route, Routes } from 'react-router-dom';
 import LoginView from './views/LoginView';
 import RegisterView from './views/RegisterView';
@@ -9,10 +9,12 @@ import ProductosView from '../src/views/ProductosView';
 
 
 
+
+
 function App() {
   //const {token} = useContext(UserContext);
   return (
-    <BrowserRouter>
+    
     
     <Routes>
       <Route path="/" element={<Home/>} />
@@ -24,7 +26,7 @@ function App() {
 
 
     </Routes>
-    </BrowserRouter>
+    
   )
 }
 

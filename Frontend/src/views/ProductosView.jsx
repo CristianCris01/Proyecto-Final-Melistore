@@ -1,6 +1,6 @@
-import NavBar from '../Componentes/NavBar';
-import Footer from '../Pages/Footer';
-import Productos from '../Pages/Productos';
+import NavBar from '../componentes/NavBar';
+import Footer from '../componentes/Footer';
+import Productos from '../componentes/Productos';
 
 
 export default function ProductosView() {

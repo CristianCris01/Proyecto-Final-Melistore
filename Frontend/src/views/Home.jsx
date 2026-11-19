@@ -1,5 +1,5 @@
-import NavBar from '../Componentes/NavBar';
-import Footer from './Footer';
+import NavBar from '../componentes/NavBar';
+import Footer from '../componentes/Footer';
 import Logo from '../assets/Logo2.png';
 import { GoGift } from "react-icons/go";
 import { FaRegHeart } from "react-icons/fa";

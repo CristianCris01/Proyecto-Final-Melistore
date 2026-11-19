@@ -1,10 +1,14 @@
 import Navbar from 'react-bootstrap/Navbar';
 import Logo from '../assets/Logo2.png';
+import { useContext } from 'react';
+import { UserContext } from '../context/UserContext';
+import { Link } from 'react-router-dom';
 
 //import { useNavigate } from 'react-router-dom';
 
 function NavBar() {
   //const navigate = useNavigate();
+  const {token, logout} = useContext(UserContext)
   return (
     <Navbar className="NavBar" expand="lg">
       <div className="NavBarInner">
@@ -17,11 +21,13 @@ function NavBar() {
         <Navbar.Toggle aria-controls="main-navbar" className="menuToggle" />
         <Navbar.Collapse id="main-navbar" className="menuCollapse">
           <nav className="navLinks" aria-label="Menu principal">
-            <a  href="/Login">Iniciar sesion</a>
-            <a href="/Register">Registro</a>
-            <a href="/Productos">Productos</a>
-            <a href="#galeria">Galeria</a>
-            <a href="#contacto">Contacto</a>
+            {!token && <Link to="/Login">Iniciar sesion</Link>}
+            {!token && <Link to="/Register">Registro</Link>}
+            <Link to="/Productos">Productos</Link>
+            <Link to="#galeria">Galeria</Link>
+            <Link to="#contacto">Contacto</Link>
+            {token && <Link onClick={()=>logout()}  to="#contacto">Cerrar Sesion</Link>}
+
           </nav>
         </Navbar.Collapse>
 

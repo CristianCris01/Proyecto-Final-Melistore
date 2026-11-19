@@ -1,7 +1,7 @@
 import React from "react";
-import NavBar from "../Componentes/NavBar";
-import Register from "../Componentes/Register";
-import Footer from "../Pages/Footer";
+import NavBar from "../componentes/NavBar";
+import Register from "../componentes/Register";
+import Footer from "../componentes/Footer";
 
 export default function RegisterView() {
     return (

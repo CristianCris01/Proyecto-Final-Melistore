@@ -1,7 +1,7 @@
 import React from 'react';
-import NavBar from '../Componentes/NavBar';
-import Footer from '../Pages/Footer';
-import Login from '../Componentes/Login';
+import NavBar from '../componentes/NavBar';
+import Footer from '../componentes/Footer';
+import Login from '../componentes/Login';
 
 export default function LoginView() {
     return (

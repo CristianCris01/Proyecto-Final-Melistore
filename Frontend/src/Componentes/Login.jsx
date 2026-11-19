@@ -1,15 +1,17 @@
 import {useContext, useState} from "react";
-import { UserContext } from "../context/authContext";
+import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import './Login.css';
 
 
+
 function Login () {
+    const {token, setToken, setUser} = useContext(UserContext)
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
     //const [ login ] = useContext (UserContext);
     const navigate = useNavigate();
-    const {setUser} = useContext (UserContext);
+    
 
   
 
@@ -36,12 +38,15 @@ function Login () {
             else {
                 alert("Sesion inicida con exito");
                 let usuarioLogeado = {
-                    email: data.email,
                     token: data.token
+                    
                 }
                 setUser(usuarioLogeado);
+                setToken(data.token);
+                localStorage.setItem("token", data.token);
+                console.log(usuarioLogeado);
                 navigate("/");
-                login();
+                
             }
         }   
     }
