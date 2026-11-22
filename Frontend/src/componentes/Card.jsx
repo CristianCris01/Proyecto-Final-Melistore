@@ -41,14 +41,14 @@ const handleAgregar = async () => {
       
          
          
-        </div>
         <div className="productItemBottom">
-          <button type="button" onClick={handleAgregar}>
-            Agregar al carrito
-          </button>
           <p className="productItemPrice">${product.precio.toLocaleString('es-CL')} <span>CLP</span></p>
           <span className="productItemAvailability">Disponible</span>
+          <button className="productItemAdd" type="button" onClick={handleAgregar}>
+            Agregar al carrito
+          </button>
         </div>
+      </div>
     </article>
     
   );

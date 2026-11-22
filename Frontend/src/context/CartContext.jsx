@@ -56,8 +56,41 @@ export default function CarritoProvider({ children }) {
     await cargarCarrito();
   };
 
+  const cambiarCantidad = async (itemId, cambio) => {
+    const respuesta = await fetch(`${API_URL}/cart/items/${itemId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ cambio }),
+    });
+
+    if (!respuesta.ok) throw new Error('No se pudo cambiar la cantidad');
+
+    const actualizado = await respuesta.json();
+    setItems((actuales) => actuales.map((item) => (
+      item.id === actualizado.id ? { ...item, cantidad: actualizado.cantidad } : item
+    )));
+  };
+
+  const comprarCarrito = async () => {
+    const respuesta = await fetch(`${API_URL}/orders`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (!respuesta.ok) {
+      const datos = await respuesta.json().catch(() => null);
+      throw new Error(datos?.error || 'No se pudo finalizar la compra');
+    }
+
+    const { items_comprados } = await respuesta.json();
+    setItems((actuales) => actuales.filter((item) => !items_comprados.includes(item.id)));
+  };
+
   return (
-    <CarritoContext.Provider value={{ items, agregarProducto }}>
+    <CarritoContext.Provider value={{ items, agregarProducto, cambiarCantidad, comprarCarrito }}>
       {children}
     </CarritoContext.Provider>
   );

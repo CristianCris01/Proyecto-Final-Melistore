@@ -10,6 +10,8 @@ const {
   crearProducto,
   agregarAlCarrito,
   obtenerCarritoPorUsuario,
+  cambiarCantidadCarrito,
+  finalizarCompra,
   listarProductos,
   eliminarProducto
 
@@ -111,6 +113,34 @@ app.get('/cart', verificarToken, async (req, res) => {
     return res.json(items);
   } catch (error) {
     res.status(500).json({ error: 'No se pudo consultar el carrito' });
+  }
+});
+
+app.patch('/cart/items/:id', verificarToken, async (req, res) => {
+  const id = Number(req.params.id);
+  const cambio = req.body?.cambio;
+  if (!Number.isInteger(id) || id < 1 || id > 2147483647 || ![-1, 1].includes(cambio)) {
+    return res.status(400).json({ error: 'Ítem o cambio de cantidad inválido' });
+  }
+
+  try {
+    const item = await cambiarCantidadCarrito(req.usuario.id, id, cambio);
+    if (!item) return res.status(404).json({ error: 'Producto no encontrado en tu carrito' });
+    return res.json(item);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'No se pudo cambiar la cantidad' });
+  }
+});
+
+app.post('/orders', verificarToken, async (req, res) => {
+  try {
+    const orden = await finalizarCompra(req.usuario.id);
+    if (!orden) return res.status(409).json({ error: 'Tu carrito está vacío' });
+    return res.status(201).json(orden);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'No se pudo finalizar la compra' });
   }
 });
 

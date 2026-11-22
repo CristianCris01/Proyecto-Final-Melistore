@@ -111,10 +111,25 @@
 
 .productItemBottom {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
   padding-top: 15px;
+}
+
+.productItemAdd {
+  padding: 8px 14px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: var(--sage);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.productItemAdd:hover {
+  background: #8da99c;
 }
 
 .productItemPrice {

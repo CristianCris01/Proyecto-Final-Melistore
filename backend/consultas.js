@@ -79,6 +79,50 @@ const listarProductos = async () => {
   return rows;
 };
 
+const cambiarCantidadCarrito = async (usuarioId, itemId, cambio) => {
+  const { rows } = await pool.query(
+    'UPDATE cart SET cantidad = GREATEST(1, cantidad + $3) WHERE nombre_id = $1 AND id = $2 RETURNING id, cantidad',
+    [usuarioId, itemId, cambio]
+  );
+  return rows[0];
+};
+
+const finalizarCompra = async (usuarioId) => {
+  const cliente = await pool.connect();
+
+  try {
+    await cliente.query('BEGIN');
+    const { rows: items } = await cliente.query(
+      `SELECT c.id, c.cantidad, p.precio
+       FROM cart c JOIN productos p ON p.id = c.titulo_id
+       WHERE c.nombre_id = $1
+       ORDER BY c.id
+       FOR UPDATE OF c`,
+      [usuarioId]
+    );
+
+    if (items.length === 0) {
+      await cliente.query('ROLLBACK');
+      return null;
+    }
+
+    const total = items.reduce((suma, item) => suma + item.precio * item.cantidad, 0);
+    const { rows: [orden] } = await cliente.query(
+      'INSERT INTO orders (user_id, total) VALUES ($1, $2) RETURNING id, total, estatus',
+      [usuarioId, total]
+    );
+    const ids = items.map((item) => item.id);
+    await cliente.query('DELETE FROM cart WHERE nombre_id = $1 AND id = ANY($2::int[])', [usuarioId, ids]);
+    await cliente.query('COMMIT');
+    return { ...orden, items_comprados: ids };
+  } catch (error) {
+    await cliente.query('ROLLBACK');
+    throw error;
+  } finally {
+    cliente.release();
+  }
+};
+
 module.exports = {
   pool, 
   checkConnection,
@@ -87,6 +131,8 @@ module.exports = {
   crearProducto,
   agregarAlCarrito,
   obtenerCarritoPorUsuario,
+  cambiarCantidadCarrito,
+  finalizarCompra,
   listarProductos,
   eliminarProducto
 };
