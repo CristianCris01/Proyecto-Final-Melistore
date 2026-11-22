@@ -46,23 +46,36 @@ const crearProducto = async ({ titulo, description, precio, imagen_url }) => {
   return rows[0];
 };
 
+const eliminarProducto= async (id) => {
+  const consulta = "DELETE FROM productos WHERE id = $1 RETURNING id";
+  const { rows } = await pool.query(consulta, [id]);
+  return rows[0];
+};
 
-const agregarAlCarrito = async ({ nombre_id, titulo_id, cantidad }) => {
-  const consulta = "INSERT INTO cart (nombre_id, titulo_id, cantidad) VALUES ($1, $2, $3) RETURNING *";
-  const values = [nombre_id, titulo_id, cantidad || 1];
-  const { rows } = await pool.query(consulta, values);
+
+const agregarAlCarrito = async (usuarioId, productoId) => {
+  const consulta = ` INSERT INTO cart (nombre_id, titulo_id, cantidad) VALUES ($1, $2, 1)
+  oN CONFLICT (nombre_id, totulo_id) DO UPDATE SET antidad = cart.cantidad + 1 RETURNING *`;
+  const { rows } = await pool.query(consulta, [usuarioId,productoId]);
   return rows[0];
 };
 
 const obtenerCarritoPorUsuario = async (usuario_id) => {
   
   const consulta = `
-    SELECT c.id, p.titulo, p.precio, p.imagen_url, c.cantidad, (p.precio * c.cantidad) AS subtotal
+    SELECT c.id, p.id AS producto_id p.titulo, p.precio, p.imagen_url, c.cantidad, p.precio * c.cantidad AS subtotal
     FROM cart c
     INNER JOIN productos p ON c.titulo_id = p.id
     WHERE c.nombre_id = $1
+    ORDER BY c.id
   `;
   const { rows } = await pool.query(consulta, [usuario_id]);
+  return rows;
+};
+
+const listarProductos = async () => {
+  const productos = `SELECT id, titulo, description, precio, imagen_url FROM productos`;
+  const {rows} = await pool.query(productos);
   return rows;
 };
 
@@ -73,5 +86,7 @@ module.exports = {
   verificarCredenciales,
   crearProducto,
   agregarAlCarrito,
-  obtenerCarritoPorUsuario
+  obtenerCarritoPorUsuario,
+  listarProductos,
+  eliminarProducto
 };

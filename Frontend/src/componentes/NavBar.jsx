@@ -4,10 +4,10 @@ import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 import { Link } from 'react-router-dom';
 
-//import { useNavigate } from 'react-router-dom';
+
 
 function NavBar() {
-  //const navigate = useNavigate();
+  
   const {token, logout} = useContext(UserContext)
   return (
     <Navbar className="NavBar" expand="lg">
@@ -24,7 +24,7 @@ function NavBar() {
             {!token && <Link to="/Login">Iniciar sesion</Link>}
             {!token && <Link to="/Register">Registro</Link>}
             <Link to="/Productos">Productos</Link>
-            <Link to="#galeria">Galeria</Link>
+            {token && <Link to="/GestionProductosView">Agregar</Link>}
             <Link to="#contacto">Contacto</Link>
             {token && <Link onClick={()=>logout()}  to="#contacto">Cerrar Sesion</Link>}
 

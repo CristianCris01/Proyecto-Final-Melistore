@@ -1,0 +1,95 @@
+.gestion-productos {
+  min-height: 100vh;
+  padding: clamp(32px, 6vw, 72px) clamp(16px, 5vw, 48px);
+  background: linear-gradient(180deg, #fffaf6 0%, #f3f7ef 100%);
+  color: var(--ink);
+}
+
+.gestion-productos > * {
+  max-width: 680px;
+  margin-inline: auto;
+}
+
+.gestion-productos h2,
+.gestion-productos h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.gestion-productos form,
+.gestion-productos li {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+
+.gestion-productos form {
+  display: grid;
+  gap: 16px;
+  padding: clamp(16px, 4vw, 28px);
+}
+
+.gestion-productos label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.gestion-productos input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+}
+
+.gestion-productos button {
+  padding: 9px 16px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--ink);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.gestion-productos input:focus-visible,
+.gestion-productos button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.gestion-productos button[type='submit'] {
+  justify-self: start;
+  background: var(--sage);
+}
+
+.gestion-productos hr {
+  margin-block: 28px;
+  border-color: var(--line);
+  opacity: 1;
+}
+
+.gestion-productos ul {
+  display: grid;
+  gap: 10px;
+  padding: 0;
+  list-style: none;
+}
+
+.gestion-productos li {
+  padding: 12px 16px;
+  overflow-wrap: anywhere;
+}
+
+.gestion-productos li button {
+  margin: 4px 0 4px 8px;
+  border-color: var(--rose-dark);
+  background: transparent;
+}
+
+.gestion-productos li button:hover {
+  background: var(--rose);
+}

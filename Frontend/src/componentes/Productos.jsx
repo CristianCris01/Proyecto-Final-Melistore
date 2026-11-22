@@ -1,7 +1,8 @@
+import { useEffect, useState } from 'react';
 import Card from './Card';
 import './Productos.css';
 
-const products = [
+/*const products = [
   {
     id: 1,
     name: 'Vela de soja artesanal',
@@ -68,9 +69,33 @@ const products = [
     badge: 'Para regalar',
     image: 'https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=900&q=85',
   },
-];
+];*/
+
+
+
 
 export default function Productos() {
+  const [productos, setProductos] = useState([]);
+
+  const cargarProductos = async () => {
+    try{
+      const respuesta = await fetch("https://backend-r0ho.onrender.com/productos");
+      if (!respuesta.ok){
+        throw new Error ('Error al cargar los productos'
+        )
+      }
+      const data = await respuesta.json();
+      setProductos(data);
+    }
+    catch (error){
+      console.error('Error al cargar: ', error);
+    }
+  }
+    useEffect(() => {
+      cargarProductos();
+    }, [] );
+        
+  
   return (
     <main className="productosPage">
       <section className="productosIntro">
@@ -82,10 +107,10 @@ export default function Productos() {
       <section className="productosCatalog" aria-label="Catálogo de productos">
         <div className="productosCatalogHeader">
           <h2>Nuestros productos</h2>
-          <span>{products.length} productos</span>
+          <span>{productos.length} productos</span>
         </div>
         <div className="productosGrid">
-          {products.map((product) => <Card key={product.id} product={product} />)}
+          {productos.map((product) => <Card key={product.id} product={product} />)}
         </div>
       </section>
     </main>

@@ -1,9 +1,12 @@
 import './App.css'
 import Home from './views/Home'
-import {BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { useContext } from 'react';
 import LoginView from './views/LoginView';
 import RegisterView from './views/RegisterView';
 import ProductosView from '../src/views/ProductosView';
+import { UserContext } from './context/UserContext';
+import GestionProductosView from './views/GestionProductosView';
 
 
 
@@ -12,7 +15,7 @@ import ProductosView from '../src/views/ProductosView';
 
 
 function App() {
-  //const {token} = useContext(UserContext);
+  const {token} = useContext(UserContext);
   return (
     
     
@@ -21,7 +24,8 @@ function App() {
       <Route path="/Login" element={<LoginView/>} />
       <Route path="/Register" element={<RegisterView/>} />
       <Route path="/Productos" element={<ProductosView/>} />
-     { /*<Route path="/Login" element={ token ? <Navigate to="/" /> : <Login/>} />*/}
+      <Route path="/GestionProductosView" element={ token ? <GestionProductosView/> : <Navigate to="/Login" replace />}/>
+    
 
 
 

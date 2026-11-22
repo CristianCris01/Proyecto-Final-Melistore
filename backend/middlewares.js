@@ -16,7 +16,8 @@ const verificarToken = (req, res, next) => {
 
     const token = Authorization.split("Bearer ")[1];
     jwt.verify(token, secretKey); 
-    const payload = jwt.decode(token); 
+    const payload = jwt.verify(token, secretKey); 
+    req.usuario = payload;
     req.email = payload.email; 
 
     next();
