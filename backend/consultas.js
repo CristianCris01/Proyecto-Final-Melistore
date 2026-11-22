@@ -55,7 +55,7 @@ const eliminarProducto= async (id) => {
 
 const agregarAlCarrito = async (usuarioId, productoId) => {
   const consulta = ` INSERT INTO cart (nombre_id, titulo_id, cantidad) VALUES ($1, $2, 1)
-  oN CONFLICT (nombre_id, totulo_id) DO UPDATE SET antidad = cart.cantidad + 1 RETURNING *`;
+  oN CONFLICT (nombre_id, titulo_id) DO UPDATE SET cantidad = cart.cantidad + 1 RETURNING *`;
   const { rows } = await pool.query(consulta, [usuarioId,productoId]);
   return rows[0];
 };
@@ -63,7 +63,7 @@ const agregarAlCarrito = async (usuarioId, productoId) => {
 const obtenerCarritoPorUsuario = async (usuario_id) => {
   
   const consulta = `
-    SELECT c.id, p.id AS producto_id p.titulo, p.precio, p.imagen_url, c.cantidad, p.precio * c.cantidad AS subtotal
+    SELECT c.id, p.id AS producto_id, p.titulo, p.precio, p.imagen_url, c.cantidad, p.precio * c.cantidad AS subtotal
     FROM cart c
     INNER JOIN productos p ON c.titulo_id = p.id
     WHERE c.nombre_id = $1

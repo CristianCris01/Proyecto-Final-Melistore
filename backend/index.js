@@ -107,7 +107,7 @@ app.post('/cart/items', verificarToken, async (req, res) => {
 
 app.get('/cart', verificarToken, async (req, res) => {
   try {
-    const items = await obtenerCarritoPorUsuario(req.usuario_id);
+    const items = await obtenerCarritoPorUsuario(req.usuario.id);
     return res.json(items);
   } catch (error) {
     res.status(500).json({ error: 'No se pudo consultar el carrito' });

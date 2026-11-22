@@ -3,11 +3,16 @@ import Logo from '../assets/Logo2.png';
 import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 import { Link } from 'react-router-dom';
+import { CarritoContext } from '../context/CartContext';
+
+
+
 
 
 
 function NavBar() {
-  
+  const { items } = useContext(CarritoContext);
+  const cantidadTotal = items.reduce((total, item) => total + item.cantidad, 0)
   const {token, logout} = useContext(UserContext)
   return (
     <Navbar className="NavBar" expand="lg">
@@ -34,7 +39,7 @@ function NavBar() {
         <div className="navActions" aria-hidden="true">
           <span className="searchIcon"></span>
           <span className="bagIcon">
-            <span className="bagCount">0</span>
+            <span className="bagCount">{cantidadTotal}</span>
           </span>
         </div>
       </div>

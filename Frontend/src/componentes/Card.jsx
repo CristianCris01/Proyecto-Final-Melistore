@@ -1,7 +1,29 @@
 import { FaRegHeart } from 'react-icons/fa';
 import './Card.css';
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/UserContext';
+import { CarritoContext } from '../context/CartContext';
+
+
 
 function Card({ product }) {
+  const { token } = useContext(UserContext);
+const { agregarProducto } = useContext(CarritoContext);
+const navigate = useNavigate();
+
+const handleAgregar = async () => {
+  if (!token) {
+    navigate('/Login');
+    return;
+  }
+
+  try {
+    await agregarProducto(product.id);
+  } catch (error) {
+    alert(error.message);
+  }
+};
   return (
     <article className="productItemCard">
       <div className="productItemImage">
@@ -21,6 +43,9 @@ function Card({ product }) {
          
         </div>
         <div className="productItemBottom">
+          <button type="button" onClick={handleAgregar}>
+            Agregar al carrito
+          </button>
           <p className="productItemPrice">${product.precio.toLocaleString('es-CL')} <span>CLP</span></p>
           <span className="productItemAvailability">Disponible</span>
         </div>
