@@ -36,11 +36,11 @@ function NavBar() {
           </nav>
         </Navbar.Collapse>
 
-        <div className="navActions" aria-hidden="true">
-          <span className="searchIcon"></span>
-          <span className="bagIcon">
-            <span className="bagCount">{cantidadTotal}</span>
-          </span>
+          <div className="navActions">
+          <span className="searchIcon" aria-hidden="true"></span>
+          <Link to="/carrito" className="bagIcon" aria-label={`Carrito, ${cantidadTotal} unidades`}>
+          <span className="bagCount" aria-hidden="true">{cantidadTotal}</span>
+          </Link>
         </div>
       </div>
     </Navbar>

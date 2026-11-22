@@ -7,6 +7,7 @@ import RegisterView from './views/RegisterView';
 import ProductosView from '../src/views/ProductosView';
 import { UserContext } from './context/UserContext';
 import GestionProductosView from './views/GestionProductosView';
+import Cart from './componentes/Cart';
 
 
 
@@ -24,6 +25,7 @@ function App() {
       <Route path="/Login" element={<LoginView/>} />
       <Route path="/Register" element={<RegisterView/>} />
       <Route path="/Productos" element={<ProductosView/>} />
+      <Route path="/carrito" element={token ? <Cart /> : <Navigate to="/Login" replace />} />
       <Route path="/GestionProductosView" element={ token ? <GestionProductosView/> : <Navigate to="/Login" replace />}/>
     
 
