@@ -3,7 +3,7 @@ import { UserContext } from './UserContext';
 
 export const CarritoContext = createContext();
 
-const API_URL = 'http://localhost:3000';
+const API_URL = 'https://backend-r0ho.onrender.com';
 
 export default function CarritoProvider({ children }) {
   const { token } = useContext(UserContext);
