@@ -19,3 +19,10 @@ HITO 3 - Backend
 Implementacion del Backend con Node.js el cual contiene:
 
 .-DataBase .-Servidor con express .-Midlewares .-Jsonwebtoken para autenticacion y autorizacion .-Test de APIS
+
+
+HTIO 4 - Despliegue
+
+.-Despliegue de DB en Supabase
+.-Despliegue del Backend en Render
+.-Visualizacion y ejecucionde funcionabiidad en Vercel https://proyecto-final-melistore.vercel.app/
