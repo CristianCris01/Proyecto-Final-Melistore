@@ -1,3 +1,4 @@
+import { API_URL } from '../api';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -19,7 +20,7 @@ function Register ({onClose}) {
             let user = {nombre, email, password};
             let datos = JSON.stringify(user);
 
-            const respuesta = await fetch("https://backend-r0ho.onrender.com/usuarios",{
+            const respuesta = await fetch(`${API_URL}/usuarios`,{
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: datos,

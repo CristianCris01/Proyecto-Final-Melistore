@@ -1,1 +1,3 @@
-module.exports = "La_clave_super_secreta_1234";
+const { JWT_SECRET } = require('./configuracion');
+
+module.exports = JWT_SECRET;

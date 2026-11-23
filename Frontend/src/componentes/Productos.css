@@ -1,6 +1,5 @@
 .productosPage {
   min-height: 70vh;
-  padding-top: 96px;
   background: linear-gradient(180deg, #fffaf6 0%, #f3f7ef 100%);
 }
 
@@ -39,6 +38,7 @@
 
 .productosCatalogHeader {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
   gap: 16px;
@@ -75,10 +75,6 @@
 }
 
 @media (max-width: 640px) {
-  .productosPage {
-    padding-top: 82px;
-  }
-
   .productosIntro {
     padding: 46px 22px 34px;
   }

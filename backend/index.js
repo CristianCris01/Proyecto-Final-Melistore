@@ -24,7 +24,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const port = process.env.PORT || 3000;
+const { PORT: port = 3000 } = require('./configuracion');
 
 app.listen(port, async () => {
     console.log(`🟢 Servidor iniciado con exito en el puerto ${port}`);
@@ -66,7 +66,7 @@ app.post('/productos', verificarToken, async (req, res) => {
     }
 
     const producto = await crearProducto(req.body);
-    return res.status(201).json
+    return res.status(201).json(producto);
    
   } catch (error) {
     res.status(500).json({ error: error.message });

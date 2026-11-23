@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
 
 :root {
+  --altura-barra: 96px;
   --cream: #fbf5ee;
   --paper: #fffaf4;
   --wood: #b7845c;
@@ -34,52 +35,50 @@ a {
   background: linear-gradient(180deg, #fffaf6 0%, #f3f7ef 100%);
 }
 
-.NavBar {
-  position: fixed;
+.navbar.barra-navegacion {
+  position: sticky;
   top: 0;
+  padding: 0;
   z-index: 10;
-  min-height: 96px;
+  min-height: var(--altura-barra);
   background: rgba(255, 250, 246, 0.94);
   box-shadow: 0 8px 28px rgba(94, 69, 52, 0.08);
   backdrop-filter: blur(12px);
 }
 
-.NavBarInner {
+.barra-contenido {
   position: relative;
   display: grid;
-  grid-template-columns: 180px 1fr 180px;
+  grid-template-columns: minmax(92px, 1fr) auto minmax(92px, 1fr);
   align-items: center;
   width: min(1380px, calc(100% - 56px));
   margin: 0 auto;
-  min-height: 96px;
+  min-height: var(--altura-barra);
 }
 
-.brandLogo {
-  position: absolute;
-  left: 0;
-  top: 12px;
-  z-index: 2;
+.marca-nav {
+  justify-self: start;
   margin: 0;
 }
 
-.ImgLogo {
-  width: 132px;
-  height: 132px;
+.logo-nav {
+  width: 84px;
+  height: 84px;
   border-radius: 50%;
   object-fit: cover;
   filter: drop-shadow(0 12px 18px rgba(88, 65, 45, 0.2));
 }
 
-.menuCollapse {
+.menu-desplegable {
   grid-column: 2;
   justify-content: center;
 }
 
-.navLinks {
+.enlaces-menu {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(28px, 4vw, 62px);
+  gap: clamp(16px, 2.8vw, 48px);
   width: 100%;
   text-transform: uppercase;
   font-size: 14px;
@@ -87,18 +86,27 @@ a {
   letter-spacing: 0;
 }
 
-.navLinks a {
+.enlaces-menu a,
+.enlaces-menu button {
   position: relative;
   padding: 10px 0;
   color: #3f3834;
 }
 
-.navLinks a.active,
-.navLinks a:hover {
+.enlaces-menu button {
+  border: 0;
+  background: transparent;
+  font: inherit;
+  text-transform: inherit;
+}
+
+.enlaces-menu a.active,
+.enlaces-menu a:hover,
+.enlaces-menu button:hover {
   color: var(--rose-dark);
 }
 
-.navLinks a.active::after {
+.enlaces-menu a.active::after {
   content: '';
   position: absolute;
   left: 0;
@@ -108,7 +116,7 @@ a {
   background: var(--rose-dark);
 }
 
-.navActions {
+.acciones-nav {
   grid-column: 3;
   display: flex;
   justify-content: flex-end;
@@ -181,8 +189,14 @@ a {
   line-height: 1;
 }
 
-.menuToggle {
+.boton-menu {
   justify-self: end;
+}
+
+#contacto,
+#inicio,
+#productos {
+  scroll-margin-top: var(--altura-barra);
 }
 
 .heroSection {
@@ -224,7 +238,7 @@ a {
   font-size: clamp(64px, 6vw, 94px);
   font-weight: 400;
   line-height: 0.95;
-  white-space: nowrap;
+  text-wrap: balance;
 }
 
 .sectionDivider {
@@ -393,38 +407,47 @@ a {
   line-height: 1.45;
 }
 
-@media (max-width: 992px) {
-  .NavBarInner {
+@media (max-width: 991.98px) {
+  .barra-contenido {
     display: flex;
     justify-content: space-between;
     width: min(100% - 32px, 900px);
   }
 
-  .brandLogo {
-    position: static;
+  .logo-nav {
+    width: 68px;
+    height: 68px;
   }
 
-  .ImgLogo {
-    width: 78px;
-    height: 78px;
-  }
-
-  .menuCollapse {
+  .menu-desplegable {
     position: absolute;
-    top: 96px;
+    top: 100%;
     left: 0;
     right: 0;
-    padding: 18px 0;
+    padding-inline: 12px;
     background: rgba(255, 250, 246, 0.98);
     box-shadow: 0 18px 28px rgba(94, 69, 52, 0.12);
   }
 
-  .navLinks {
+  .enlaces-menu {
     flex-direction: column;
-    gap: 14px;
+    align-items: stretch;
+    gap: 0;
+    max-height: calc(100dvh - var(--altura-barra));
+    overflow-y: auto;
+    padding-block: 6px;
+    text-align: center;
   }
 
-  .navActions {
+  .boton-menu {
+    margin-left: auto;
+  }
+
+  .acciones-nav {
+    margin: 0 12px 0 20px;
+  }
+
+  .searchIcon {
     display: none;
   }
 
@@ -451,16 +474,8 @@ a {
 }
 
 @media (max-width: 640px) {
-  .NavBar {
-    min-height: 82px;
-  }
-
-  .NavBarInner {
-    min-height: 82px;
-  }
-
-  .menuCollapse {
-    top: 82px;
+  :root {
+    --altura-barra: 82px;
   }
 
   .heroSection {
@@ -488,7 +503,7 @@ a {
   }
 
   .heroContent h1 {
-    font-size: 68px;
+    font-size: clamp(42px, 10vw, 68px);
   }
 
   .sectionDivider span {

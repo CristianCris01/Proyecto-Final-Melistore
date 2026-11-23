@@ -1,3 +1,4 @@
+import { API_URL } from '../api';
 import { useEffect, useState } from 'react';
 import Card from './Card';
 import './Productos.css';
@@ -79,7 +80,7 @@ export default function Productos() {
 
   const cargarProductos = async () => {
     try{
-      const respuesta = await fetch("https://backend-r0ho.onrender.com/productos");
+      const respuesta = await fetch(`${API_URL}/productos`);
       if (!respuesta.ok){
         throw new Error ('Error al cargar los productos'
         )

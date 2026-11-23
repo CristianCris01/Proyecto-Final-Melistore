@@ -2,15 +2,9 @@ const { Pool } = require("pg");
 const bcrypt = require("bcryptjs")
 
 
-const pool = new Pool({
-    host: "aws-1-us-east-1.pooler.supabase.com",
-    port:"5432",
-    user: "postgres.okpdwsukbglkaxozpxod",
-    password: "Poyoko2408.",
-    database: "postgres",
-    allowExitOnIdle: true
+require('./configuracion');
 
-});
+const pool = new Pool({ allowExitOnIdle: true });
 
 
 async function checkConnection() {

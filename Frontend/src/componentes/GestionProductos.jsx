@@ -1,5 +1,8 @@
+import { API_URL } from '../api';
 import { useEffect, useState } from "react";
 import '../componentes/GestionProductos.css';
+
+const urlProductos = `${API_URL}/productos`;
 
   const inicialForm = {
          titulo: '',
@@ -14,10 +17,9 @@ export default function GestionProductosView() {
 
   
 
-    const url = "https://backend-r0ho.onrender.com"
     const cargarProductos = async () => {
         try{
-            const respuesta = await fetch(url);
+            const respuesta = await fetch(urlProductos);
             if(!respuesta.ok) throw new Error ('Error al cargar los productos')
             const data = await respuesta.json();
             setProductos(data)
@@ -55,7 +57,7 @@ const handleCrearProducto = async (event) => {
     const token = localStorage.getItem('token');
     const nuevoProducto = {...formData, precio }
     try{
-        const respuesta = await fetch(url,{
+        const respuesta = await fetch(urlProductos,{
             method:'POST',
             headers:{'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`},
@@ -80,7 +82,7 @@ const handleCrearProducto = async (event) => {
 const handleEliminarProducto = async (id) => {
     const token = localStorage.getItem('token');
     try{
-        const respuesta = await fetch(`${url}/${id}`, {
+        const respuesta = await fetch(`${urlProductos}/${id}`, {
             method:'DELETE',
             headers:{Authorization: `Bearer ${token}`},
         });

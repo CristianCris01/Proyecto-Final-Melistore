@@ -1,9 +1,9 @@
+import { API_URL } from '../api';
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { UserContext } from './UserContext';
 
 export const CarritoContext = createContext();
 
-const API_URL = 'https://backend-r0ho.onrender.com';
 
 export default function CarritoProvider({ children }) {
   const { token } = useContext(UserContext);

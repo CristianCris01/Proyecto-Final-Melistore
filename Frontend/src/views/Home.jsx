@@ -42,8 +42,8 @@ const products = [
 function Home() {
   return (
     <>
+    <NavBar />
     <main className="homePage">
-      <NavBar />
 
       <section className="heroSection" id="inicio">
         <div className="heroContent">

@@ -8,13 +8,11 @@ const  UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
     const logout = () => {
-        localStorage.removeItem("token")
-        setToken (false);
+        localStorage.removeItem("token");
+        setToken(null);
         setUser(null);
-        navigate("/");
-        return
-
-
+        navigate("/", { replace: true });
+        window.scrollTo(0, 0);
     }
 
     return (
