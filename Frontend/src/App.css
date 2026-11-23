@@ -365,7 +365,7 @@ a {
   text-transform: uppercase;
 }
 
-.productGrid {
+.tarjetas-destacadas {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 30px;
@@ -464,7 +464,7 @@ a {
   }
 
   .benefitsStrip,
-  .productGrid {
+  .tarjetas-destacadas {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -515,7 +515,7 @@ a {
   }
 
   .benefitsStrip,
-  .productGrid {
+  .tarjetas-destacadas {
     grid-template-columns: 1fr;
   }
 

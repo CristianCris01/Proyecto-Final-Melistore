@@ -1,6 +1,9 @@
 import NavBar from '../componentes/NavBar';
 import Footer from '../componentes/Footer';
-import Logo from '../assets/Logo2.png';
+import Logo from '../assets/HMÑ.jpg';
+import Logo2 from '../assets/Dormitorio.jpg';
+import Logo3 from '../assets/Outdoor.jpg';
+import Logo4 from '../assets/Regalos.jpg'
 import { GoGift } from "react-icons/go";
 import { FaRegHeart } from "react-icons/fa";
 import { SiMaterialformkdocs } from "react-icons/si";
@@ -32,12 +35,6 @@ const benefits = [
   },
 ];
 
-const products = [
-  'Dormitorio y Closet',
-  'Hombre, mujer y niños',
-  'Deporte, outdoor y camping',
-  'Regalos mas vendidos',
-];
 
 function Home() {
   return (
@@ -79,16 +76,49 @@ function Home() {
           <span></span>
         </div>
 
-        <div className="productGrid">
-          {products.map((product) => (
-            <article className="productCard" key={product}>
-              <img src={Logo} alt={product} />
+        <div className="tarjetas-destacadas">
+          
+            <article className="productCard">
+              <img src={Logo} alt= "Hombre, Mujer y Niño"/>
               <div>
-                <h3>{product}</h3>
+                <h3>Hombre, Mujer y Niño</h3>
                 <p>Contamos con una amplia selección de productos para cada necesidad.</p>
               </div>
             </article>
-          ))}
+          
+        
+       
+          
+            <article className="productCard">
+              <img src={Logo2} alt= "Dormitorio"/>
+              <div>
+                <h3>Dormitorio</h3>
+                <p>Contamos con una amplia selección de productos para cada necesidad.</p>
+              </div>
+            </article>
+        
+        
+        
+          
+            <article className="productCard">
+              <img src={Logo3} alt="Deportes, Outdoor y Camping" />
+              <div>
+                <h3>Deportes, Outdoor y Camping</h3>
+                <p>Contamos con una amplia selección de productos para cada necesidad.</p>
+              </div>
+            </article>
+          
+    
+       
+          
+            <article className="productCard" >
+              <img src={Logo4} alt="Regalos y más!"/>
+              <div>
+                <h3>Regalos y más!</h3>
+                <p>Contamos con una amplia selección de productos para cada necesidad.</p>
+              </div>
+            </article>
+          
         </div>
       </section>
     </main>
