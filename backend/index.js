@@ -26,6 +26,10 @@ app.use(cors());
 
 const { PORT: port = 3000 } = require('./configuracion');
 
+if (!secretKey) {
+  console.error('Falta configurar JWT_SECRET en el backend.');
+}
+
 app.listen(port, async () => {
     console.log(`🟢 Servidor iniciado con exito en el puerto ${port}`);
     try {
@@ -54,7 +58,12 @@ app.post('/login', async (req, res) => {
     const token = jwt.sign({ id: usuario.id, email: usuario.email }, secretKey);
     res.json({ token });
   } catch (error) {
-    res.status(error.code || 500).json({ error: error.message });
+    if (error.code === 401) {
+      return res.status(401).json({ error: error.message });
+    }
+
+    console.error('Error en POST /login:', error.code, error.message);
+    return res.status(500).json({ error: 'No se pudo iniciar sesión. Inténtalo más tarde.' });
   }
 });
 
