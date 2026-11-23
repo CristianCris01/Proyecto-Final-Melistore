@@ -1,4 +1,4 @@
-import { API_URL } from '../api';
+import { API_URL, leerRespuestaApi } from '../api';
 import {useContext, useState} from "react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import './Login.css';
 
 
 function Login () {
-    const {token, setToken, setUser} = useContext(UserContext)
+    const {setToken, setUser} = useContext(UserContext)
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
     //const [ login ] = useContext (UserContext);
@@ -16,41 +16,32 @@ function Login () {
 
   
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-    
 
-        if(!email || !password || password.length < 6){
+        if (!email || !password || password.length < 6) {
             alert("Por favor, complete todos los campos. La contraseña debe tener al menos 6 caracteres.");
+            return;
         }
-         else { 
-            const respuesta = await fetch(`${API_URL}/login`,{
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({email, password}),
 
+        try {
+            const respuesta = await fetch(`${API_URL}/login`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password }),
             });
-            let data = await respuesta.json();
+            const { token } = await leerRespuestaApi(respuesta);
+            if (!token) throw new Error("La API no devolvió un token de sesión.");
 
-            if (data.error) {
-                alert(data.error);
-                return;
-            }
-            else {
-                alert("Sesion inicida con exito");
-                let usuarioLogeado = {
-                    token: data.token
-                    
-                }
-                setUser(usuarioLogeado);
-                setToken(data.token);
-                localStorage.setItem("token", data.token);
-                console.log(usuarioLogeado);
-                navigate("/");
-                
-            }
-        }   
-    }
+            localStorage.setItem("token", token);
+            setUser({ token });
+            setToken(token);
+            alert("Sesión iniciada con éxito");
+            navigate("/");
+        } catch (error) {
+            alert(`No se pudo iniciar sesión. ${error.message}`);
+        }
+    };
 
     return (
         <form

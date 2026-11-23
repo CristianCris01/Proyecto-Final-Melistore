@@ -1,4 +1,4 @@
-import { API_URL } from '../api';
+import { API_URL, leerRespuestaApi } from '../api';
 import { useEffect, useState } from 'react';
 import Card from './Card';
 import './Productos.css';
@@ -81,11 +81,8 @@ export default function Productos() {
   const cargarProductos = async () => {
     try{
       const respuesta = await fetch(`${API_URL}/productos`);
-      if (!respuesta.ok){
-        throw new Error ('Error al cargar los productos'
-        )
-      }
-      const data = await respuesta.json();
+      const data = await leerRespuestaApi(respuesta);
+      if (!Array.isArray(data)) throw new Error('La API no devolvió una lista de productos.');
       setProductos(data);
     }
     catch (error){
